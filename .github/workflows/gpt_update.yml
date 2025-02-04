@@ -1,0 +1,27 @@
+name: GPT Update Code
+
+on:
+  workflow_dispatch:  # 手動で実行できるようにする
+
+jobs:
+  update_code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GPT_PAT }}
+
+      - name: 新しいブランチを作成
+        run: |
+          git checkout -b feature/inbound-optimization
+          git push origin feature/inbound-optimization
+
+      - name: GPTが修正コードをPush
+        run: |
+          # ここでGPTがコード修正を適用（後で追加）
+          git config --global user.name "GPT Bot"
+          git config --global user.email "gpt@openai.com"
+          git add .
+          git commit -m "Apply inbound-optimization changes"
+          git push origin feature/inbound-optimization
